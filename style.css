@@ -1,0 +1,218 @@
+/* --- 1. PENGATURAN DASAR --- */
+* {
+    margin: 0; padding: 0;      /* Hapus jarak bawaan browser biar rapi */
+    box-sizing: border-box;     /* Pastikan padding tidak merusak ukuran kotak */
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Font teks biasa */
+    background-color: #0a0a0a;  /* Warna latar belakang (Hitam Gelap) */
+    color: #ffffff;             /* Warna teks (Putih) */
+}
+
+.container {
+    width: 85%;                 /* Lebar konten 85% dari layar */
+    margin: auto;               /* Posisi otomatis di tengah layar */
+}
+
+/* --- 2. HEADER & HERO (Layar Utama) --- */
+header {
+    height: 100vh;              /* Tinggi header = 100% tinggi layar */
+    /* Gambar background dengan efek gelap transparan di atasnya */
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?q=80&w=1200');
+    background-size: cover;     /* Gambar memenuhi layar */
+    background-position: center  ; /*Untuk fokus di tengah gambar*/
+    background-attachment: fixed; /* Efek keren: Gambar diam saat discroll */
+    display: flex;              /* Aktifkan mode fleksibel */
+    flex-direction: column;     /* Susun elemen ke bawah (Nav di atas Hero) */
+}
+
+/* Navigasi (Menu) */
+nav {
+    display: flex;              /* Aktifkan mode fleksibel */
+    justify-content: space-between; /* Logo di Kiri, Menu di Kanan */
+    align-items: center;        /* Rata tengah secara vertikal */
+    padding: 20px 0;            /* Jarak atas bawah 20px */
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif; /* Font futuristik */
+    font-size: 2rem;            /* Ukuran font besar */
+    font-weight: 900;           /* Font tebal sekali */
+    letter-spacing: 5px;        /* Jarak antar huruf renggang */
+}
+.logo span { color: #ff4d4d; }  /* Huruf 'X' warnanya Merah */
+
+nav ul { list-style: none; display: flex; } /* Hilangkan titik bullet, susun menyamping */
+nav ul li { margin-left: 20px; }            /* Jarak antar menu */
+nav ul li a { 
+    color: white; 
+    text-decoration: none;      /* Hilangkan garis bawah link */
+    transition: 0.3s;           /* Efek halus saat disentuh */
+}
+nav ul li a:hover { color: #ff4d4d; }       /* Berubah merah saat disentuh */
+
+/* Hero Text (Judul Besar) */
+.hero-content {
+    flex: 1;                    /* Mengisi sisa ruang kosong agar teks pas di tengah */
+    display: flex;
+    flex-direction: column;     /* Susun Teks & Tombol ke bawah */
+    justify-content: center;    /* Rata tengah vertikal */
+    align-items: center;        /* Rata tengah horizontal */
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5rem;            /* Ukuran font Judul Sangat Besar */
+    text-shadow: 4px 4px 0px #ff4d4d; /* Bayangan merah di belakang teks */
+    margin-bottom: 10px;
+}
+
+.btn-red {
+    padding: 15px 40px;         /* Besarnya tombol */
+    background: #ff4d4d;        /* Warna tombol merah */
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;        /* Sudut tombol bulat */
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* --- 3. FITUR TAMBAHAN (Sidebar & Stats) --- */
+.social-sidebar {
+    position: fixed;            /* Menempel di layar (tidak ikut scroll) */
+    left: 20px; top: 40%;       /* Posisi di kiri tengah */
+    display: flex; flex-direction: column; gap: 20px;
+}
+.social-sidebar a { 
+    color: white; text-decoration: none; writing-mode: vertical-rl; /* Teks berdiri */
+}
+
+.stats-bar {
+    background: #ff4d4d;        /* Latar merah */
+    padding: 40px 0;
+}
+.grid-stats {
+    display: flex;              /* Mode fleksibel */
+    justify-content: space-around; /* Jarak antar angka merata */
+    text-align: center;
+}
+.stat-item h3 { font-size: 2.5rem; font-family: 'Orbitron'; }
+
+/* --- 4. GALLERY (Kotak Motor) --- */
+.gallery-section { padding: 80px 0; }
+.title-center { text-align: center; margin-bottom: 40px; font-family: 'Orbitron'; }
+
+.gallery-grid {
+    display: grid;              /* Mode Grid (Kotak-kotak) */
+    grid-template-columns: repeat(3, 1fr); /* 3 Kolom sama besar */
+    gap: 30px;                  /* Jarak antar kotak */
+}
+
+.card {
+    background: #1a1a1a;        /* Warna kartu abu gelap */
+    border-radius: 15px;        /* Sudut kartu melengkung */
+    overflow: hidden;           /* Biar gambar ga keluar dari lengkungan */
+    position: relative;         /* Agar bisa menaruh label harga */
+    transition: 0.4s;           /* Kecepatan animasi hover */
+}
+
+/* --- CSS UNTUK EFEK HISTORY --- */
+
+/* Memastikan kartu bisa menampung elemen absolute di dalamnya */
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-history {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px; /* Samakan dengan tinggi gambar di CSS Anda */
+    background: rgba(255, 77, 77, 0.9); /* Merah transparan sesuai tema SBX */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    opacity: 0; /* Sembunyi secara default */
+    transition: 0.5s ease;
+    transform: translateY(20px); /* Efek muncul dari bawah sedikit */
+    z-index: 2;
+}
+
+.card-history p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: white;
+    font-weight: 500;
+}
+
+/* Munculkan saat kartu di-hover */
+.card:hover .card-history {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Sedikit penyesuaian agar teks deskripsi bawah tetap rapi */
+.card-desc {
+    position: relative;
+    z-index: 3;
+    background: #1a1a1a;
+}
+
+.card:hover { transform: translateY(-10px); } /* Kartu naik saat disentuh */
+
+.card img { width: 100%; height: 250px; object-fit: cover; } /* Gambar pas */
+.price-tag {
+    position: absolute; top: 15px; right: 15px;
+    background: #ff4d4d; padding: 5px 15px; border-radius: 5px; font-weight: bold;
+}
+.card-desc { padding: 20px; }
+
+/* --- 5. INFO SECTION (Tabel & Form) --- */
+.info-section { padding: 80px 0; background: #151515; }
+
+.split-layout {
+    display: flex;              /* Mode fleksibel */
+    gap: 40px;                  /* Jarak antara tabel dan form */
+}
+
+.box-panel {
+    flex: 1;                    /* Bagi dua layar sama rata (50:50) */
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+/* Tabel */
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+td, th { padding: 15px; border-bottom: 1px solid #333; text-align: left; }
+th { color: #ff4d4d; }
+
+/* Form Input */
+input {
+    width: 100%; padding: 15px; margin-top: 15px;
+    background: black; border: 1px solid #333; color: white;
+}
+button {
+    width: 100%; padding: 15px; margin-top: 15px;
+    background: #ff4d4d; border: none; color: white; cursor: pointer; font-weight: bold;
+}
+
+footer { text-align: center; padding: 30px; border-top: 1px solid #333; }
+
+/* --- 6. RESPONSIVE (Untuk HP) --- */
+@media (max-width: 768px) {
+    /* Ubah susunan yang tadinya menyamping jadi ke bawah */
+    .gallery-grid, .split-layout, .grid-stats { 
+        display: flex; flex-direction: column; gap: 20px; 
+    }
+    .hero-content h1 { font-size: 3rem; } /* Kecilkan huruf judul di HP */
+    nav { flex-direction: column; gap: 15px; } /* Menu jadi tumpuk di HP */
+    .social-sidebar { display: none; } /* Hilangkan sidebar di HP biar ga sempit */
+}
